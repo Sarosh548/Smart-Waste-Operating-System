@@ -1,0 +1,12 @@
+ultralytics>=8.0
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+redis
+opencv-python
+torch
+torchvision
+roboflow
+python-dotenv
+jupyter
