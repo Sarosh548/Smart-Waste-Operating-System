@@ -30,3 +30,7 @@ async def root():
         "docs"   : "/docs",
         "health" : "/api/v1/health",
     }
+
+@app.get("/health")
+def health():
+    return {"status": "ok", "module": "module1_detection"}

@@ -130,3 +130,41 @@ class UserBadge(Base):
     user_id    = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     badge_id   = Column(Integer, ForeignKey("badges.id"), nullable=False)
     earned_at  = Column(DateTime(timezone=True), server_default=func.now())
+
+class MarketplaceListing(Base):
+    __tablename__ = "marketplace_listings"
+    id            = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    seller_id     = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    waste_type    = Column(String(20), nullable=False)
+    quantity_kg   = Column(Numeric(10, 2), nullable=False)
+    base_price    = Column(Numeric(10, 2), nullable=False)
+    current_price = Column(Numeric(10, 2))
+    status        = Column(String(20), default="active")
+    title         = Column(String(200))
+    description   = Column(Text)
+    location      = Column(String(100))
+    expires_at    = Column(DateTime(timezone=True))
+    created_at    = Column(DateTime(timezone=True), server_default=func.now())
+    bids          = relationship("MarketplaceBid", back_populates="listing")
+
+class MarketplaceBid(Base):
+    __tablename__ = "marketplace_bids"
+    id            = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    listing_id    = Column(UUID(as_uuid=True), ForeignKey("marketplace_listings.id"), nullable=False)
+    bidder_id     = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    bid_amount    = Column(Numeric(10, 2), nullable=False)
+    status        = Column(String(20), default="pending")
+    note          = Column(Text)
+    created_at    = Column(DateTime(timezone=True), server_default=func.now())
+    listing       = relationship("MarketplaceListing", back_populates="bids")
+
+class MarketplaceTransaction(Base):
+    __tablename__ = "marketplace_transactions"
+    id            = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    listing_id    = Column(UUID(as_uuid=True), ForeignKey("marketplace_listings.id"), nullable=False)
+    seller_id     = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    buyer_id      = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    final_price   = Column(Numeric(10, 2), nullable=False)
+    quantity_kg   = Column(Numeric(10, 2), nullable=False)
+    status        = Column(String(20), default="completed")
+    created_at    = Column(DateTime(timezone=True), server_default=func.now())

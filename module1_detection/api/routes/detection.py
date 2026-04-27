@@ -8,8 +8,8 @@ router = APIRouter(prefix="/api/v1", tags=["detection"])
 @router.post("/detect")
 async def detect_waste(
     file: UploadFile = File(...),
-    # CHANGE default=0.25 to 0.15 or 0.10 below:
-    conf: float      = Query(default=0.15, ge=0.1, le=0.9), 
+    # CHANGE default=0.25 :
+    conf: float = Query(default=0.25, ge=0.1, le=0.9),
 ):
     if file.content_type not in ["image/jpeg", "image/png", "image/jpg"]:
         raise HTTPException(400, "Only JPEG and PNG supported")

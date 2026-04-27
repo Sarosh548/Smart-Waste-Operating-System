@@ -14,7 +14,7 @@ CLASS_COLORS = {
     "hazardous": "#EF4444",
 }
 
-MODEL_PATH = Path(r"C:\SWOS\module1_detection\models\swos_v2_best.pt")
+MODEL_PATH = Path(r"C:\SWOS\module1_detection\models\swos_v3_best.pt")
 
 _model = None
 
