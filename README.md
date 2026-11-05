@@ -4,7 +4,7 @@
 
 ![Version](https://img.shields.io/badge/version-3.0-blue)
 ![Python](https://img.shields.io/badge/python-3.10-green)
-![YOLO](https://img.shields.io/badge/YOLO-26n-orange)
+![YOLO](https://img.shields.io/badge/YOLO-v8-orange)
 ![License](https://img.shields.io/badge/license-MIT-purple)
 
 ---
@@ -32,13 +32,13 @@ SWOS is a full-stack AI-powered smart city waste management system built for Lah
 
 | Problem | Solution |
 |---------|----------|
-| No real-time bin visibility | IoT sensors + YOLO26 computer vision |
+| No real-time bin visibility | IoT sensors + YOLOv8 computer vision |
 | Inefficient truck routing | OR-Tools VRP optimizer |
 | Low recycling rates | Citizen gamification + rewards |
 | No data for planning | Prophet forecasting + Gov dashboard |
 
 **Key Results:**
-- 🤖 YOLO26 model — **0.745 mAP50** (waste detection accuracy)
+- 🤖 YOLOv8 model — **0.745 mAP50** (waste detection accuracy)
 - 🚛 VRP routing — eliminates unnecessary truck trips
 - ♻️ Recycling marketplace — PKR 136,000 per transaction
 - 🌍 Carbon tracking — 18 tons CO₂ avoided
@@ -60,7 +60,7 @@ SWOS is a full-stack AI-powered smart city waste management system built for Lah
     │  Module 1   │  │ Module 2  │  │   Module 3     │
     │  Detection  │  │Segregation│  │   Routing      │
     │  Port 8001  │  │ Port 8002 │  │   Port 8003    │
-    │  YOLO26 AI  │  │ Rewards   │  │  OR-Tools VRP  │
+    │  YOLOv8 AI  │  │ Rewards   │  │  OR-Tools VRP  │
     └─────────────┘  └───────────┘  └────────────────┘
     ┌──────────┐  ┌──────────────┐  ┌────────────────┐
     │ Module 4 │  │   Module 5   │  │   Module 6     │
@@ -73,7 +73,7 @@ SWOS is a full-stack AI-powered smart city waste management system built for Lah
 **Data Flow:**
 ```
 Bin sensor ping → fill level stored → Module 3 route optimization
-Camera image   → YOLO26 detection  → waste type + hazard alert
+Camera image   → YOLOv8 detection  → waste type + hazard alert
 Citizen scan   → Module 2 rewards  → points + badge earned
 Historical data→ Module 4 forecast → predict next week volume
 Recycled waste → Module 5 auction  → PKR revenue for collector
@@ -96,7 +96,7 @@ Real-time waste type detection and bin fill-level monitoring using edge computer
 - Annotated image returned with bounding boxes
 - ONNX export for edge deployment
 
-**Model:** YOLO26n — trained on 29,235 images across 9 datasets
+**Model:** YOLOv8 — trained on 29,235 images across 9 datasets
 
 **Endpoints:**
 ```
@@ -224,7 +224,7 @@ Unified React dashboard aggregating all 5 modules with PDF export.
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
-| AI Model | YOLO26n (Ultralytics 8.4.41) | Waste object detection |
+| AI Model | YOLOv8 (Ultralytics 8.4.41) | Waste object detection |
 | Forecasting | Facebook Prophet | Time-series prediction |
 | Routing | Google OR-Tools | VRP optimization |
 | Backend | FastAPI + Uvicorn | REST APIs (6 services) |
@@ -248,7 +248,7 @@ SWOS/
 ├── module1_detection/
 │   ├── api/
 │   │   ├── main.py              # FastAPI server entry point
-│   │   ├── inference.py         # YOLO26 model loading + prediction
+│   │   ├── inference.py         # YOLOv8 model loading + prediction
 │   │   └── routes/
 │   │       └── detection.py     # /detect endpoint
 │   ├── data/
@@ -496,7 +496,7 @@ curl -X POST http://127.0.0.1:8005/api/v5/listings/create \
 
 ## 🤖 Model Performance
 
-### YOLO26n Training History
+### YOLOv8 Training History
 
 | Version | Dataset Size | mAP50 | Epochs | Notes |
 |---------|-------------|-------|--------|-------|
@@ -536,12 +536,12 @@ TOTAL               29,235
 
 ### Training Configuration
 ```python
-model    = YOLO('yolo26n.pt')   # pretrained on COCO
+model    = YOLO('yolov8n.pt')   # pretrained on COCO
 epochs   = 150                   # early stopped at 71
 imgsz    = 640
 batch    = 32
 device   = 0                     # Tesla T4 GPU (16GB)
-optimizer= MuSGD                 # YOLO26's new optimizer
+optimizer= MuSGD                 # YOLOv8's new optimizer
 patience = 30                    # early stopping
 ```
 
@@ -616,7 +616,7 @@ disposal_logs      → detailed scan history
 
 This project was built entirely from scratch including:
 - Custom AI dataset collection and labeling pipeline
-- YOLO26 fine-tuning on waste domain
+- YOLOv8 fine-tuning on waste domain
 - 6 independent microservices
 - 4 React applications
 - Complete PostgreSQL schema design
